@@ -57,7 +57,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   traefik-forward-auth-plex-sso:
-    image: dbendit/traefik-forward-auth-plex-sso:latest
+    image: ghcr.io/dbendit/traefik-forward-auth-plex-sso:latest
     environment:
       - SECRET=something-random
       - INSECURE_COOKIE=true # Example assumes no https, do not use in production
@@ -416,8 +416,8 @@ Note: This only clears the auth cookie from the users browser and as this servic
 
 ## Copyright
 
-2022 Dave Bendit
-2018 Thom Seddon
+* 2022 Dave Bendit
+* 2018 Thom Seddon (https://github.com/thomseddon/traefik-forward-auth)
 
 ## License
 
