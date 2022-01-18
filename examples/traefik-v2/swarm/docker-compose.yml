@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.2
+    command: --providers.docker
+    ports:
+      - "8085:80"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  whoami:
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost.com`)"
+      # This example uses "Selective Authentication"
+      - "traefik.http.routers.whoami.middlewares=traefik-forward-auth-plex-sso"
+
+  traefik-forward-auth-plex-sso:
+    image: traefik-forward-auth-plex-sso
+    environment:
+      - SECRET=something-random
+      # INSECURE_COOKIE is required if not using a https entrypoint
+      - INSECURE_COOKIE=true
+      - LOG_LEVEL=trace
+    labels:
+      - "traefik.http.middlewares.traefik-forward-auth-plex-sso.forwardauth.address=http://traefik-forward-auth-plex-sso:4181"
+      - "traefik.http.middlewares.traefik-forward-auth-plex-sso.forwardauth.authResponseHeaders=X-Forwarded-User"
+      - "traefik.http.services.traefik-forward-auth-plex-sso.loadbalancer.server.port=4181"
