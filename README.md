@@ -33,6 +33,7 @@ A minimal forward authentication service that provides Plex SSO login and authen
         - [Overlay Mode](#overlay-mode)
         - [Auth Host Mode](#auth-host-mode)
     - [Logging Out](#logging-out)
+- [To-do](#to-do)
 - [Copyright](#copyright)
 - [License](#license)
 
@@ -413,6 +414,14 @@ The service provides an endpoint to clear a users session and "log them out". Th
 You can use the `logout-redirect` config option to redirect users to another URL following logout (note: the user will not have a valid auth cookie after being logged out).
 
 Note: This only clears the auth cookie from the users browser and as this service is stateless, it does not invalidate the cookie against future use. So if the cookie was recorded, for example, it could continue to be used for the duration of the cookie lifetime.
+
+# To-do
+
+* Bulk up test coverage
+* Import additional examples
+* Verify server membership (for one or more servers)
+* Verify server access levels globally
+* Verify server access levels in rules
 
 ## Copyright
 

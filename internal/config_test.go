@@ -175,7 +175,7 @@ func TestConfigValidate(t *testing.T) {
 	log, hook = test.NewNullLogger()
 	log.ExitFunc = func(code int) {}
 
-	// Validate defualt config + rule error
+	// Validate default config + rule error
 	c, _ := NewConfig([]string{
 		"--rule.1.action=bad",
 	})

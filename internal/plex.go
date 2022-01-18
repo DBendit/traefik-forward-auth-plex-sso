@@ -10,20 +10,23 @@ import (
 	"net/url"
 )
 
-const PinURL = "https://plex.tv/api/v2/pins"
-const LoginURL = "https://app.plex.tv/auth/#!"
-const UserURL = "https://plex.tv/users/account"
-const ServerURL = "https://plex.tv/api/resources"
+const pinURL = "https://plex.tv/api/v2/pins"
+const loginURL = "https://app.plex.tv/auth/#!"
+const userURL = "https://plex.tv/users/account"
+const serverURL = "https://plex.tv/api/resources"
 
+// Pin A pin response from Plex's auth system
 type Pin struct {
 	Id   json.Number `json:"id"`
 	Code string      `json:"code"`
 }
 
+// Token An authentication token extracted from a successful Pin response
 type Token struct {
 	Token string `json:"authToken"`
 }
 
+// User A user record from Plex, deserialized from XML
 type User struct {
 	XMLName xml.Name `xml:"user"`
 	Email   string   `xml:"email,attr"`
@@ -69,8 +72,9 @@ func doReqXml(logger *logrus.Entry, req *http.Request, output interface{}) error
 	return nil
 }
 
+// GetPin Retrieve a Pin (with Id and Code) from Plex
 func GetPin(logger *logrus.Entry) (Pin, error) {
-	pinUrl, _ := url.Parse(PinURL)
+	pinUrl, _ := url.Parse(pinURL)
 
 	q := url.Values{}
 	q.Set("strong", "true")
@@ -90,17 +94,19 @@ func GetPin(logger *logrus.Entry) (Pin, error) {
 	return pinResp, nil
 }
 
+// GetLoginURL Construct a login URL for authenticating with Plex
 func GetLoginURL(redirectURI, code string) string {
 	// Can't use url.Parse here, since Plex API wants a leading fragment for some reason
 	q := url.Values{}
 	q.Set("clientID", config.ClientIdentifier)
 	q.Set("code", code)
 	q.Set("forwardUrl", redirectURI)
-	return fmt.Sprintf("%s?%s", LoginURL, q.Encode())
+	return fmt.Sprintf("%s?%s", loginURL, q.Encode())
 }
 
+// GetToken Retrieve an authentication Token using a Pin
 func GetToken(logger *logrus.Entry, pinId string) (string, error) {
-	pinUrl, _ := url.Parse(PinURL)
+	pinUrl, _ := url.Parse(pinURL)
 	pinUrl.Path += fmt.Sprintf("/%s", pinId)
 	req, err := http.NewRequest("GET", pinUrl.String(), nil)
 	if err != nil {
@@ -116,8 +122,9 @@ func GetToken(logger *logrus.Entry, pinId string) (string, error) {
 	return token.Token, nil
 }
 
+// GetUser Retrieve an authenticated User
 func GetUser(logger *logrus.Entry, token string) (User, error) {
-	userUrl, _ := url.Parse(UserURL)
+	userUrl, _ := url.Parse(userURL)
 	req, err := http.NewRequest("GET", userUrl.String(), nil)
 	if err != nil {
 		return User{}, errors.New("unable to construct user request")
