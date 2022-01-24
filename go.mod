@@ -22,9 +22,9 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/vulcand/predicate v1.1.0 // indirect
-	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
+	golang.org/x/crypto v0.0.0-20190923035154-9ee001bba392 // indirect
 	golang.org/x/net v0.0.0-20190930134127-c5a3c61f89f3 // indirect
-	golang.org/x/sys v0.0.0-20190813064441-fde4db37ae7a // indirect
+	golang.org/x/sys v0.0.0-20190924154521-2837fb4f24fe // indirect
 	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
 
@@ -38,4 +38,10 @@ replace (
 	github.com/mailgun/minheap => github.com/containous/minheap v0.0.0-20190809180810-6e71eb837595
 	github.com/mailgun/multibuf => github.com/containous/multibuf v0.0.0-20190809014333-8b6c9a7e6bba
 	github.com/rancher/go-rancher-metadata => github.com/containous/go-rancher-metadata v0.0.0-20190402144056-c6a65f8b7a28
+)
+
+// From Dependabot
+replace (
+	github.com/miekg/dns => github.com/miekg/dns v1.1.25
+	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
 )

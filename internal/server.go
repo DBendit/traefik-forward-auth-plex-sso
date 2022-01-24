@@ -103,7 +103,7 @@ func (s *Server) AuthHandler(rule string) http.HandlerFunc {
 		// Validate user
 		valid := ValidateEmail(email, rule)
 		if !valid {
-			logger.WithField("email", email).Warn("Invalid email")
+			logger.WithField("email", Sanitize(email)).Warn("Invalid email")
 			http.Error(w, "Not authorized", 401)
 			return
 		}
@@ -134,7 +134,7 @@ func (s *Server) AuthCallbackHandler() http.HandlerFunc {
 		if !valid {
 			logger.WithFields(logrus.Fields{
 				"error":       err,
-				"csrf_cookie": c,
+				"csrf_cookie": Sanitize(c.String()),
 			}).Warn("Error validating csrf cookie")
 			http.Error(w, "Not authorized", 401)
 			return
@@ -179,7 +179,7 @@ func (s *Server) AuthCallbackHandler() http.HandlerFunc {
 		// Generate cookie
 		http.SetCookie(w, MakeCookie(r, user.Email))
 		logger.WithFields(logrus.Fields{
-			"redirect": redirect,
+			"redirect": Sanitize(redirect),
 			"user":     user.Email,
 		}).Info("Successfully generated auth cookie, redirecting user.")
 
@@ -239,11 +239,11 @@ func (s *Server) logger(r *http.Request, handler, rule, msg string) *logrus.Entr
 	logger := log.WithFields(logrus.Fields{
 		"handler":   handler,
 		"rule":      rule,
-		"method":    r.Header.Get("X-Forwarded-Method"),
-		"proto":     r.Header.Get("X-Forwarded-Proto"),
-		"host":      r.Header.Get("X-Forwarded-Host"),
-		"uri":       r.Header.Get("X-Forwarded-Uri"),
-		"source_ip": r.Header.Get("X-Forwarded-For"),
+		"method":    Sanitize(r.Header.Get("X-Forwarded-Method")),
+		"proto":     Sanitize(r.Header.Get("X-Forwarded-Proto")),
+		"host":      Sanitize(r.Header.Get("X-Forwarded-Host")),
+		"uri":       Sanitize(r.Header.Get("X-Forwarded-Uri")),
+		"source_ip": Sanitize(r.Header.Get("X-Forwarded-For")),
 	})
 
 	// Log request
