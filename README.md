@@ -11,7 +11,7 @@ A minimal forward authentication service that provides Plex SSO login and authen
 - Allows authentication to be selectively applied/bypassed based on request parameters (see `rules` in [Configuration](#configuration))
 - Supports use of centralised authentication host/redirect_uri (see `auth-host` in [Configuration](#configuration))
 - Allows authentication to persist across multiple domains (see [Cookie Domains](#cookie-domains))
-- Supports extended authentication beyond Google token lifetime (see: `lifetime` in [Configuration](#configuration))
+- Supports extended authentication (see: `lifetime` in [Configuration](#configuration))
 
 # Contents
 
@@ -108,8 +108,9 @@ Application Options:
   --whitelist=                                          Only allow given email addresses, can be set multiple times [$WHITELIST]
   --port=                                               Port to listen on (default: 4181) [$PORT]
   --rule.<name>.<param>=                                Rule definitions, param can be: "action" or "rule"
-  --product                                             Identity of this service to send to Plex in X-Plex-Product header
-  --client-identifier                                   Client identifier of this service to send to Plex in X-Plex-Client-Identifier header
+  --product                                             Identity of this service to send to Plex in X-Plex-Product header [$PRODUCT]
+  --client-identifier                                   Client identifier of this service to send to Plex in X-Plex-Client-Identifier header [$CLIENT_IDENTIFIER]
+  --server-identifier                                   Identifier for the server that users must be members of to successfully authenticate [$SERVER_IDENTIFIER]
 
 Help Options:
   -h, --help                                            Show this help message
@@ -419,7 +420,6 @@ Note: This only clears the auth cookie from the users browser and as this servic
 
 * Bulk up test coverage
 * Import additional examples
-* Verify server membership (for one or more servers)
 * Verify server access levels globally
 * Verify server access levels in rules
 

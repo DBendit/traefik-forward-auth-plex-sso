@@ -41,6 +41,7 @@ type Config struct {
 	Port                   int                  `long:"port" env:"PORT" default:"4181" description:"Port to listen on"`
 	Product                string               `long:"product" env:"PRODUCT" default:"traefik-forward-auth-plex-sso" description:"Identity of this service to send to Plex in X-Plex-Product header"`
 	ClientIdentifierString string               `long:"client-identifier" env:"CLIENT_IDENTIFIER" description:"Client identifier of this service to send to Plex in X-Plex-Client-Identifier header" json:"-"`
+	ServerIdentifier       string               `long:"server-identifier" env:"SERVER_IDENTIFIER" description:"Identifier for the server that users must be members of to successfully authenticate"`
 
 	Rules map[string]*Rule `long:"rule.<name>.<param>" description:"Rule definitions, param can be: \"action\" or \"rule\""`
 

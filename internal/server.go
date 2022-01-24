@@ -159,6 +159,23 @@ func (s *Server) AuthCallbackHandler() http.HandlerFunc {
 			return
 		}
 
+		// Verify that the user is a member of the configured server
+		if len(config.ServerIdentifier) > 0 {
+			accessTier, err := GetAccessTier(logger, token)
+			if err != nil {
+				logger.WithField("error", err).WithField("user", user.Email).Error("Error getting access tier")
+				http.Error(w, "Service unavailable", 503)
+				return
+			}
+			if accessTier == NoAccess {
+				logger.WithField("user", user.Email).Info("User unauthorized")
+				http.Error(w, "Forbidden", 403)
+				return
+			} else {
+				logger.WithField("user", user.Email).WithField("access_tier", accessTier).Info("User authorized")
+			}
+		}
+
 		// Generate cookie
 		http.SetCookie(w, MakeCookie(r, user.Email))
 		logger.WithFields(logrus.Fields{
