@@ -20,10 +20,13 @@ jobs:
         id: go
 
       - name: Build AMD64
-        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -installsuffix nocgo -v -o traefik-forward-auth_amd64 ./cmd
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -installsuffix nocgo -v -o traefik-forward-auth-plex-sso_amd64 ./cmd
 
       - name: Build ARM
-        run: CGO_ENABLED=0 GOOS=linux GOARCH=arm GO111MODULE=on go build -a -installsuffix nocgo -v -o traefik-forward-auth_arm ./cmd
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=arm GO111MODULE=on go build -a -installsuffix nocgo -v -o traefik-forward-auth-plex-sso_arm ./cmd
+
+      - name: Build ARM64
+        run: CGO_ENABLED=0 GOOS=linux GOARCH=arm64 GO111MODULE=on go build -a -installsuffix nocgo -v -o traefik-forward-auth-plex-sso_arm64 ./cmd
 
       - name: Get tag name
         run: echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -42,8 +45,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ fromJson(steps.get_release_details.outputs.data).upload_url }}
-          asset_path: traefik-forward-auth_amd64
-          asset_name: traefik-forward-auth_amd64
+          asset_path: traefik-forward-auth-plex-sso_amd64
+          asset_name: traefik-forward-auth-plex-sso_amd64
           asset_content_type: application/octet-stream
 
       - name: Upload ARM release asset
@@ -52,6 +55,16 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ fromJson(steps.get_release_details.outputs.data).upload_url }}
-          asset_path: traefik-forward-auth_arm
-          asset_name: traefik-forward-auth_arm
+          asset_path: traefik-forward-auth-plex-sso_arm
+          asset_name: traefik-forward-auth-plex-sso_arm
+          asset_content_type: application/octet-stream
+
+      - name: Upload ARM64 release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ fromJson(steps.get_release_details.outputs.data).upload_url }}
+          asset_path: traefik-forward-auth-plex-sso_arm64
+          asset_name: traefik-forward-auth-plex-sso_arm64
           asset_content_type: application/octet-stream
