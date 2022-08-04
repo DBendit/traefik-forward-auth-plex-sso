@@ -3,10 +3,10 @@ module github.com/dbendit/traefik-forward-auth-plex-sso
 go 1.17
 
 require (
-	github.com/containous/traefik/v2 v2.1.2
+	github.com/containous/traefik/v2 v2.2.8
 	github.com/google/uuid v1.1.1
 	github.com/sirupsen/logrus v1.4.2
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.5.1
 	github.com/thomseddon/go-flags v1.4.1-0.20190507184247-a3629c504486
 )
 
@@ -18,14 +18,14 @@ require (
 	github.com/gravitational/trace v0.0.0-20190726142706-a535a178675f // indirect
 	github.com/jonboulle/clockwork v0.1.0 // indirect
 	github.com/konsorten/go-windows-terminal-sequences v1.0.2 // indirect
-	github.com/miekg/dns v1.1.15 // indirect
+	github.com/miekg/dns v1.1.27 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/vulcand/predicate v1.1.0 // indirect
-	golang.org/x/crypto v0.0.0-20190923035154-9ee001bba392 // indirect
-	golang.org/x/net v0.0.0-20190930134127-c5a3c61f89f3 // indirect
-	golang.org/x/sys v0.0.0-20190924154521-2837fb4f24fe // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
+	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073 // indirect
+	golang.org/x/net v0.0.0-20200301022130-244492dfa37a // indirect
+	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
+	gopkg.in/yaml.v2 v2.2.8 // indirect
 )
 
 // From traefik
