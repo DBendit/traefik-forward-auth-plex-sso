@@ -431,3 +431,4 @@ Note: This only clears the auth cookie from the users browser and as this servic
 ## License
 
 [MIT](https://github.com/dbendit/traefik-forward-auth-plex-sso/blob/master/LICENSE)
+
