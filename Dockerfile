@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine as builder
+FROM golang:1.26-alpine as builder
 
 # Get target build variables
 ARG TARGETOS
@@ -20,3 +20,4 @@ FROM scratch
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /traefik-forward-auth-plex-sso ./
 ENTRYPOINT ["./traefik-forward-auth-plex-sso"]
+

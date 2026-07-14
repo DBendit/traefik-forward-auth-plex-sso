@@ -16,7 +16,7 @@ jobs:
       - name: Set up Go 1.x
         uses: actions/setup-go@v5
         with:
-          go-version: ^1.13
+          go-version: ^1.26
         id: go
 
       - name: Build AMD64
@@ -68,3 +68,4 @@ jobs:
           asset_path: traefik-forward-auth-plex-sso_arm64
           asset_name: traefik-forward-auth-plex-sso_arm64
           asset_content_type: application/octet-stream
+
